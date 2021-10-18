@@ -10,6 +10,7 @@ import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 })
 export class AppComponent {
   title = 'angmigrate';
+  myImg:any
 
   constructor() {
     monkeyPatchChartJsTooltip();
@@ -40,5 +41,40 @@ export class AppComponent {
   drop(event: CdkDragDrop<string[]>) {
     moveItemInArray(this.timePeriods, event.previousIndex, event.currentIndex);
   }
+
+  zoomin(){
+    this. myImg = document.getElementById("map");
+    var currWidth = this.myImg.clientWidth;
+    if(currWidth == 2500) 
+    return false;
+     else{
+       return  this.myImg.style.width = (currWidth + 100) + "px";
+         
+    } 
+}
+ zoomout(){
+   this.myImg = document.getElementById("map");
+    var currWidth = this.myImg.clientWidth;
+    if(currWidth == 100) return false;
+ else{
+       return this.myImg.style.width = (currWidth - 100) + "px";
+    }
+}
+
+    drops(ev:any) {
+    ev.preventDefault();
+    var data = ev.dataTransfer.getData("text");
+    console.log("d",data)
+    ev.target.appendChild(document.getElementById(data));
+  }
+
+  allowDrop(ev:any) {
+    ev.preventDefault();
+  }
+
+  drag(ev:any) {
+    ev.dataTransfer.setData("text", ev.target.id);
+  }
+
 }
 
